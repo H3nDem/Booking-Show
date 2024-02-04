@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+    {% if 'user' in session %}
+        <h1>Bonjour {{session['user']['email']}} !</h1>
+    {% else %}
+        <h1>Bienvenue !</h1>
+    {% endif %}
+{% endblock %}

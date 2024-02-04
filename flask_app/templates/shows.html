@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Spectacles{% endblock %}
+{% block content %}
+<table class="table table-striped text-center table-hover table-bordered align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th class="col-1">Spectacle</th>
+            <th class="col-1">Salle</th>
+            <th class="col-1">Date</th>
+            <th class="col-2">Descriptif</th>
+            <th class="col-1">Places disponibles</th>
+            {% if 'user' in session %}
+                {% if session['user']['role'] == 'MANAGER' %}
+                    <th class="col-1">Capacité</th>
+                    <th class="col-1">Suppresion</th>
+                {% else %}
+                    <th class="col-1">Reservation</th>
+                {% endif %}
+            {% endif %}
+            
+        </tr>
+    </thead>
+    <tbody>
+    {% for row in shows %}
+    <tr>
+        <td><a class="text-decoration-none" href="/show/{{row['show_id']}}" >{{row['show_name']}}</a></td>
+        <td>{{row['theater_name']}}</td>
+        <td>{{row['show_date']}}</td>
+        <td>{{row['description']}}</td>
+        <td>{{a[row['show_id']]}}</td>
+        
+        {% if 'user' in session %}
+            {% if session['user']['role'] == 'MANAGER' %}
+                <td>{{nb_specs[row['show_id']]}} / {{row['capacity']}}</td>
+                <td>
+                    <form method="POST" action="/show/{{row['show_id']}}/delete">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <button type="submit" class="btn btn-sm btn-danger">&times;</button>
+                    </form>
+                </td>
+            {% else %}
+                {% if row['show_id'] in ids %}
+                    <td><a class="btn btn-sm btn-outline-secondary">Réservé</a></td>
+                {% else %}
+                    {% if a[row['show_id']] > 0 %}
+                        <td><a href="/booking/{{row['show_id']}}/{{session['user']['id']}}" class='btn btn-sm btn-primary'>Reserver</a></td>
+                    {% else %}
+                        <td><a class="btn btn-sm btn-outline-secondary">Indisponible</a></td>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% if session['user']['role'] == 'MANAGER' %}
+    <p class="text-center"><a class='btn btn-success' href="show/create" >+ Nouveau spectacle</a></p>
+{% endif %}
+{% endblock %}

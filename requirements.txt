@@ -1,0 +1,13 @@
+flask
+flask_wtf
+flask_login
+wtforms
+werkzeug
+python-dotenv
+pytest
+pyopenssl
+flask-talisman
+passlib
+Flask-Session
+pyOTP
+Flask-QRcode

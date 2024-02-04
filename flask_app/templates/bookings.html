@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Reservations{% endblock %}
+{% block content %}
+<table class="table table-striped text-center table-hover table-bordered align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th class="col-2">Spectacle</th>
+            <th class="col-1">Salle</th>
+            <th class="col-2">Date</th>
+            <th class="col-4">Description</th>
+            <th class="col-1">Annulation</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for row in bookings %}
+    <tr>
+        <td><a class="text-decoration-none" href="/show/{{row['show_id']}}">{{row['show_name']}}</a></td>
+        <td>{{row['theater_name']}}</td>
+        <td>{{row['date']}}</td>
+        <td>{{row['description']}}</td>
+        <td>
+            <form method="POST" action="/booking/{{row['id']}}/delete">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-sm btn-danger">&times;</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

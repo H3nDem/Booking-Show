@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Salles de spectacles{% endblock %}
+{% block content %}
+<table class="table table-striped text-center table-hover table-bordered align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Nom</th>
+            <th>Capacité</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for row in theaters %}
+    <tr>
+        <td><a class="text-decoration-none" href="/theater/{{row['id']}}">{{row['name']}}</a></td>
+        <td>{{row['capacity']}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% if session['user']['role'] == 'MANAGER' %}
+    <p class="text-center"><a class='btn btn-success' href="theater/create">+ Nouvelle salle</a></p>
+{% endif %}
+{% endblock %}

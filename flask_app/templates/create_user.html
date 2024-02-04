@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Création d'un utilisateur{% endblock %}
+{% block content %}
+<form method='POST'>
+    {% if request.method == 'POST' %}
+    <div class="alert alert-warning">
+        Vous n'avez pas pu ajouter l'utilisateur &#9785;
+    </div>
+    {% endif %}
+    <div class="mb-3">
+      <label for="email" class="form-label">E-mail</label>
+      {{ form.email(id='email', class_ = 'form-control') }}
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Mot de passe</label>
+      {{ form.password(id='password', class_ = 'form-control') }}
+    </div>
+    <div class="mb-3">
+      <label for="confirmPassword" class="form-label">Confirmer le nouveau mot de passe</label>
+      {{ form.confirmPassword(id='confirmPassword', class_ = 'form-control')}}
+    </div>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-primary">Se connecter</button>
+</form>
+{% endblock %}

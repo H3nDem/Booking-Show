@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Création d'un spectacle{% endblock %}
+{% block content %}
+<form method="POST">
+    {% if request.method == 'POST' %}
+    <div class="alert alert-warning">
+      Le spectacle n'a pas pu être créée &#9785;
+    </div>
+    {% endif %}
+    <div class="mb-3">
+      <label for="show_name" class="form-label">Nom du spectacle</label>
+      {{ form.show_name(id='show_name', class_ = 'form-control') }}
+    </div>
+    <div class="mb-3">
+      <label for="theater" class="form-label">Salle</label>
+      {{ form.theater(id='theater', class_ = 'form-control') }}
+    </div>
+    <div class="mb-3">
+      <label for="date" class="form-label">Date</label>
+      {{ form.date(id='date', class_ = 'form-control') }}
+    </div>
+    <div class="mb-3">
+      <label for="time" class="form-label">Heure</label>
+      {{ form.time(id='time', class_ = 'form-control') }}
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Descriptif</label>
+      {{ form.description(id='description', class_ = 'form-control') }}
+    </div>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-primary">Soumettre</button>
+</form>
+{% endblock %}

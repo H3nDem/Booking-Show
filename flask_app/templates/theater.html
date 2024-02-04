@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Spectacles dans {{theater['name']}}{% endblock %}
+{% block content %}
+
+<table class="table table-striped text-center table-bordered align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th class="col-1">Nom</th>
+            <th class="col-1">Capacité</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{theater['name']}}</td>
+            <td>{{theater['capacity']}}</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<h4 class="text-center">Spectacles présents</h4>
+<br>
+<table class="table table-striped text-center table-hover table-bordered align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th class="col-1">Nom</th>
+            <th class="col-1">Salle</th>
+            <th class="col-1">Date</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for row in shows %}
+        <tr>
+            <td><a class="text-decoration-none" href="/show/{{row['show_id']}}">{{row['show_name']}}</a></td>
+            <td>{{row['theater_name']}}</td>
+            <td>{{row['show_date']}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+    
+</table>
+
+{% endblock %}

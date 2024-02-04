@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Détails de {{show['name']}}{% endblock %}
+{% block content %}
+
+<table class="table table-striped text-center table-bordered align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Nom</th>
+            <th>Salle</th>
+            <th>Date/Horaire</th>
+            <th>Places disponibles</th>
+            {% if session['user']['role'] == 'MANAGER' %}
+                <th>Capacités</th>
+            {% endif %}
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{show['name']}}</td>
+            <td>{{show['theater_name']}}</td>
+            <td>{{show['date']}}</td>
+            <td>{{a}}</td>
+            {% if session['user']['role'] == 'MANAGER' %}
+                <td>{{nb_spec}} / {{show['capacity']}}</td>
+            {% endif %}
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<h4>Descriptif du spectacle</h4>
+<a>{{show['description']}}</a>
+<br>
+<br>
+<br>
+{% if session['user']['role'] == 'MANAGER' %}
+<table class="table table-striped table-hover table-bordered align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Liste des spectacteurs</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for row in spectators %}
+        <tr>
+            <td>{{row['email']}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>   
+</table>
+{% endif %}
+
+{% if 'user' in session %}
+    {% if session['user']['role'] != 'MANAGER' %}
+        {% if show['id'] in ids %}
+            <td><a class="btn btn-outline-secondary">Reservé</a></td>
+        {% else %}
+            {% if a > 0 %}
+                <td><a class="btn btn-primary" href="/booking/{{show['id']}}/{{session['user']['id']}}">Reserver</a></td>
+            {% else %}
+                <td><a class="btn btn-outline-secondary">Indisponible</a></td>
+            {% endif %}
+        {% endif %}
+    {% else %}
+        <td>
+            <form method="POST" action="/show/{{show['id']}}/delete">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-danger">&times; Supprimer le spectacle</button>
+            </form>
+        </td>
+    {% endif %}
+{% endif %}
+
+{% endblock %}
