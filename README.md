@@ -3,7 +3,7 @@
 
 ## Description
 Website project which consists of booking for shows, there are several features, such as authentication, view shows and theaters details. There also are different bonus features according 
-to whether it's a client or a manager connected (if it's a manager he can create or delete shows and theaters)
+to whether it's a client or a manager connected (if it's a manager he can create or delete shows and theaters, otherwise if it's a client he can book for show and see all of them on a specific page)
 
 To make it work:
 On the terminal of vscode (or of an equivalent editor)
@@ -21,7 +21,7 @@ Realized by Henrique D.M.M
 ## Demo images
 ### All shows (from the client perspective)
 ![Alt text](./demo_images/demo1.png)
-### All the show the client booked
+### All the show booked (only accessible by the client)
 ![Alt text](./demo_images/demo2.png)
 ### All shows (from the manager perspective)
 ![Alt text](./demo_images/demo3.png)
